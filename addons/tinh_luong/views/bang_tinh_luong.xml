@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_bang_tinh_luong_tree" model="ir.ui.view">
+            <field name="name">bang_tinh_luong.tree</field>
+            <field name="model">bang_tinh_luong</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="thang"/>
+                    <field name="nam"/>
+                    <field name="so_ngay_cong"/>
+                    <field name="tong_phut_di_muon"/>
+                    <field name="tong_phut_ve_som"/>
+                    <field name="luong_thuc_nhan"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_bang_tinh_luong_form" model="ir.ui.view">
+            <field name="name">bang_tinh_luong.form</field>
+            <field name="model">bang_tinh_luong</field>
+            <field name="arch" type="xml">
+                <form string="Bảng tính lương">
+                    <sheet>
+                        <group col="4">
+                            <field name="name" readonly="1"/>
+                            <field name="employee_id"/>
+                            <field name="thang"/>
+                            <field name="nam"/>
+                            <field name="ngay_bat_dau" readonly="1"/>
+                            <field name="ngay_ket_thuc" readonly="1"/>
+                            <field name="cong_chuan"/>
+                            <field name="muc_phat_moi_phut"/>
+                            <field name="currency_id"/>
+                        </group>
+                        <notebook>
+                            <page string="Chấm công">
+                                <group col="4">
+                                    <field name="so_ngay_cong" readonly="1"/>
+                                    <field name="so_ngay_vang_khong_phep" readonly="1"/>
+                                    <field name="so_ngay_vang_co_phep" readonly="1"/>
+                                    <field name="tong_phut_di_muon" readonly="1"/>
+                                    <field name="tong_phut_ve_som" readonly="1"/>
+                                </group>
+                            </page>
+                            <page string="Tính lương">
+                                <group col="4">
+                                    <field name="luong_co_ban" readonly="1"/>
+                                    <field name="phu_cap_co_dinh" readonly="1"/>
+                                    <field name="don_gia_cong" readonly="1"/>
+                                    <field name="tien_cong" readonly="1"/>
+                                    <field name="tien_phat" readonly="1"/>
+                                    <field name="luong_thuc_nhan" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_bang_tinh_luong_search" model="ir.ui.view">
+            <field name="name">bang_tinh_luong.search</field>
+            <field name="model">bang_tinh_luong</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="thang"/>
+                    <field name="nam"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_bang_tinh_luong" model="ir.actions.act_window">
+            <field name="name">Bảng tính lương</field>
+            <field name="res_model">bang_tinh_luong</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_bang_tinh_luong_search"/>
+        </record>
+    </data>
+</odoo>

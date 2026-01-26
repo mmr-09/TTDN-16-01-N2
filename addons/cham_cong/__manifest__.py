@@ -18,20 +18,19 @@
     # for the full list
     'category': 'Uncategorized',
     'version': '0.1',
+    'installable': True,
 
     # any module necessary for this one to work correctly
     'depends': [
         'base',
-        'nhan_su'
+        'hr',
+        'hr_attendance',
     ],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/dang_ky_ca_lam_theo_ngay.xml',
         'views/bang_cham_cong.xml',
-        'views/dot_dang_ky.xml',
-        'views/don_tu.xml',
         'views/menu.xml',
     ],
     # only loaded in demonstration mode
