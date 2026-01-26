@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_hr_employee_form_inherit_tinh_luong" model="ir.ui.view">
+            <field name="name">hr.employee.form.tinh_luong</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='active_group']" position="before">
+                    <group string="Thông tin lương">
+                        <field name="luong_co_ban"/>
+                        <field name="phu_cap_co_dinh"/>
+                        <field name="currency_id"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
