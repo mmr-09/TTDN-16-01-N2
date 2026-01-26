@@ -9,7 +9,7 @@
                     <sheet>
                         <div class="oe_read_only" style="font-size:25px">Bảng chấm công</div>
                         <group col="4" string="Thông tin chung">
-                            <field name="nhan_vien_id"/>
+                            <field name="employee_id"/>
                             <field name="ngay_cham_cong"/>
                             <field name="ca_lam"/>
                             <field name="gio_vao_ca"/>
@@ -19,8 +19,6 @@
                             <field name="phut_di_muon"/>
                             <field name="phut_ve_som"/>
                             <field name="trang_thai"/>
-                            <field name="loai_don"/>
-                            <field name="thoi_gian_xin"/>
                         </group>
                     </sheet>
                 </form>
@@ -32,7 +30,7 @@
             <field name="model">bang_cham_cong</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="nhan_vien_id"/>
+                    <field name="employee_id"/>
                     <field name="ngay_cham_cong"/>
                     <field name="ca_lam"/>
                     <field name="gio_vao_ca"/>
@@ -42,8 +40,6 @@
                     <field name="phut_di_muon"/>
                     <field name="phut_ve_som"/>
                     <field name="trang_thai"/>
-                    <field name="loai_don"/>
-                    <field name="thoi_gian_xin"/>
                 </tree>
             </field>
         </record>
@@ -52,7 +48,7 @@
             <field name="model">bang_cham_cong</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="nhan_vien_id"/>
+                    <field name="employee_id"/>
                     <field name="ngay_cham_cong"/>
                     <field name="ca_lam"/>
                     <field name="gio_vao_ca"/>
@@ -62,8 +58,6 @@
                     <field name="phut_di_muon"/>
                     <field name="phut_ve_som"/>
                     <field name="trang_thai"/>
-                    <field name="loai_don"/>
-                    <field name="thoi_gian_xin"/>
                 </search>
             </field>
         </record>
