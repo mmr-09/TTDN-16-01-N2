@@ -10,7 +10,21 @@
                     <group string="Thông tin lương">
                         <field name="luong_co_ban"/>
                         <field name="phu_cap_co_dinh"/>
-                        <field name="currency_id"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                    <group string="Thông tin bảo hiểm">
+                        <field name="ap_dung_bao_hiem"/>
+                        <field name="luong_dong_bao_hiem" attrs="{'invisible': [('ap_dung_bao_hiem', '=', False)]}"/>
+                    </group>
+                    <group string="Tỷ lệ bảo hiểm nhân viên đóng (%)" attrs="{'invisible': [('ap_dung_bao_hiem', '=', False)]}">
+                        <field name="ty_le_bhxh_nv"/>
+                        <field name="ty_le_bhyt_nv"/>
+                        <field name="ty_le_bhtn_nv"/>
+                    </group>
+                    <group string="Tỷ lệ bảo hiểm công ty đóng (%)" attrs="{'invisible': [('ap_dung_bao_hiem', '=', False)]}">
+                        <field name="ty_le_bhxh_cty"/>
+                        <field name="ty_le_bhyt_cty"/>
+                        <field name="ty_le_bhtn_cty"/>
                     </group>
                 </xpath>
             </field>

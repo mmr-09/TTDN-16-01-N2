@@ -45,6 +45,24 @@
                                     <field name="tong_phut_ve_som" readonly="1"/>
                                 </group>
                             </page>
+                            <page string="Bảo hiểm">
+                                <group string="Thông tin đóng bảo hiểm">
+                                    <field name="ap_dung_bao_hiem" readonly="1"/>
+                                    <field name="luong_dong_bao_hiem" readonly="1"/>
+                                </group>
+                                <group string="Bảo hiểm nhân viên đóng (khấu trừ lương)" col="4">
+                                    <field name="bhxh_nv" readonly="1"/>
+                                    <field name="bhyt_nv" readonly="1"/>
+                                    <field name="bhtn_nv" readonly="1"/>
+                                    <field name="tong_bh_nv" readonly="1" class="oe_subtotal_footer_separator"/>
+                                </group>
+                                <group string="Bảo hiểm công ty đóng (tham khảo)" col="4">
+                                    <field name="bhxh_cty" readonly="1"/>
+                                    <field name="bhyt_cty" readonly="1"/>
+                                    <field name="bhtn_cty" readonly="1"/>
+                                    <field name="tong_bh_cty" readonly="1" class="oe_subtotal_footer_separator"/>
+                                </group>
+                            </page>
                             <page string="Tính lương">
                                 <group col="4">
                                     <field name="luong_co_ban" readonly="1"/>
@@ -52,7 +70,8 @@
                                     <field name="don_gia_cong" readonly="1"/>
                                     <field name="tien_cong" readonly="1"/>
                                     <field name="tien_phat" readonly="1"/>
-                                    <field name="luong_thuc_nhan" readonly="1"/>
+                                    <field name="tong_bh_nv" readonly="1" string="Khấu trừ BH"/>
+                                    <field name="luong_thuc_nhan" readonly="1" class="oe_subtotal_footer_separator"/>
                                 </group>
                             </page>
                         </notebook>

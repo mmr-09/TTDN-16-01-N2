@@ -35,6 +35,22 @@ class BangTinhLuong(models.Model):
     phu_cap_co_dinh = fields.Monetary(string="Phụ cấp cố định", compute='_compute_thong_tin_luong', store=True, currency_field='currency_id')
     currency_id = fields.Many2one('res.currency', string="Tiền tệ", default=lambda self: self.env.company.currency_id.id)
 
+    # Thông tin bảo hiểm
+    ap_dung_bao_hiem = fields.Boolean(string="Áp dụng bảo hiểm", compute='_compute_thong_tin_luong', store=True)
+    luong_dong_bao_hiem = fields.Monetary(string="Lương đóng BH", compute='_compute_thong_tin_luong', store=True, currency_field='currency_id')
+    
+    # Bảo hiểm nhân viên đóng
+    bhxh_nv = fields.Monetary(string="BHXH (NV)", compute='_compute_bao_hiem', store=True, currency_field='currency_id')
+    bhyt_nv = fields.Monetary(string="BHYT (NV)", compute='_compute_bao_hiem', store=True, currency_field='currency_id')
+    bhtn_nv = fields.Monetary(string="BHTN (NV)", compute='_compute_bao_hiem', store=True, currency_field='currency_id')
+    tong_bh_nv = fields.Monetary(string="Tổng BH (NV)", compute='_compute_bao_hiem', store=True, currency_field='currency_id')
+    
+    # Bảo hiểm công ty đóng (để tham khảo)
+    bhxh_cty = fields.Monetary(string="BHXH (CTY)", compute='_compute_bao_hiem', store=True, currency_field='currency_id')
+    bhyt_cty = fields.Monetary(string="BHYT (CTY)", compute='_compute_bao_hiem', store=True, currency_field='currency_id')
+    bhtn_cty = fields.Monetary(string="BHTN (CTY)", compute='_compute_bao_hiem', store=True, currency_field='currency_id')
+    tong_bh_cty = fields.Monetary(string="Tổng BH (CTY)", compute='_compute_bao_hiem', store=True, currency_field='currency_id')
+
     so_gio_cong = fields.Float(string="Số giờ công (đã làm tròn)", compute='_compute_thong_ke_cong', store=True)
     so_ngay_cong = fields.Float(string="Số ngày công", compute='_compute_thong_ke_cong', store=True)
     so_ngay_vang_khong_phep = fields.Float(string="Vắng không phép", compute='_compute_thong_ke_cong', store=True)
@@ -78,6 +94,9 @@ class BangTinhLuong(models.Model):
         for record in self:
             record.luong_co_ban = record.employee_id.luong_co_ban
             record.phu_cap_co_dinh = record.employee_id.phu_cap_co_dinh
+            record.ap_dung_bao_hiem = record.employee_id.ap_dung_bao_hiem
+            # Lương đóng bảo hiểm: nếu có cấu hình riêng thì dùng, không thì lấy lương cơ bản
+            record.luong_dong_bao_hiem = record.employee_id.luong_dong_bao_hiem or record.employee_id.luong_co_ban
 
     @api.depends('employee_id', 'ngay_bat_dau', 'ngay_ket_thuc', 'buoc_lam_tron_phut', 'kieu_lam_tron', 'gio_mot_cong')
     def _compute_thong_ke_cong(self):
@@ -162,6 +181,33 @@ class BangTinhLuong(models.Model):
             if record.gio_mot_cong and record.gio_mot_cong > 0:
                 record.so_ngay_cong = record.so_gio_cong / record.gio_mot_cong
 
+    @api.depends('employee_id', 'luong_dong_bao_hiem', 'ap_dung_bao_hiem')
+    def _compute_bao_hiem(self):
+        """Tính các khoản bảo hiểm nhân viên và công ty phải đóng"""
+        for record in self:
+            if record.ap_dung_bao_hiem and record.luong_dong_bao_hiem:
+                # Bảo hiểm nhân viên đóng
+                record.bhxh_nv = record.luong_dong_bao_hiem * record.employee_id.ty_le_bhxh_nv / 100
+                record.bhyt_nv = record.luong_dong_bao_hiem * record.employee_id.ty_le_bhyt_nv / 100
+                record.bhtn_nv = record.luong_dong_bao_hiem * record.employee_id.ty_le_bhtn_nv / 100
+                record.tong_bh_nv = record.bhxh_nv + record.bhyt_nv + record.bhtn_nv
+                
+                # Bảo hiểm công ty đóng (để tham khảo, không ảnh hưởng lương thực nhận)
+                record.bhxh_cty = record.luong_dong_bao_hiem * record.employee_id.ty_le_bhxh_cty / 100
+                record.bhyt_cty = record.luong_dong_bao_hiem * record.employee_id.ty_le_bhyt_cty / 100
+                record.bhtn_cty = record.luong_dong_bao_hiem * record.employee_id.ty_le_bhtn_cty / 100
+                record.tong_bh_cty = record.bhxh_cty + record.bhyt_cty + record.bhtn_cty
+            else:
+                # Không áp dụng bảo hiểm
+                record.bhxh_nv = 0
+                record.bhyt_nv = 0
+                record.bhtn_nv = 0
+                record.tong_bh_nv = 0
+                record.bhxh_cty = 0
+                record.bhyt_cty = 0
+                record.bhtn_cty = 0
+                record.tong_bh_cty = 0
+
     @api.depends(
         'luong_co_ban',
         'phu_cap_co_dinh',
@@ -170,6 +216,7 @@ class BangTinhLuong(models.Model):
         'tong_phut_di_muon',
         'tong_phut_ve_som',
         'muc_phat_moi_phut',
+        'tong_bh_nv',
     )
     def _compute_tien_luong(self):
         for record in self:
@@ -181,4 +228,5 @@ class BangTinhLuong(models.Model):
             record.tien_cong = record.don_gia_cong * record.so_ngay_cong
             tong_phut_phat = record.tong_phut_di_muon + record.tong_phut_ve_som
             record.tien_phat = record.muc_phat_moi_phut * tong_phut_phat
-            record.luong_thuc_nhan = record.tien_cong + record.phu_cap_co_dinh - record.tien_phat
+            # Lương thực nhận = Tiền công + Phụ cấp - Tiền phạt - Bảo hiểm nhân viên đóng
+            record.luong_thuc_nhan = record.tien_cong + record.phu_cap_co_dinh - record.tien_phat - record.tong_bh_nv
