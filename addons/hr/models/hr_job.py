@@ -3,7 +3,6 @@
 
 from odoo import api, fields, models, _
 
-
 class Job(models.Model):
 
     _name = "hr.job"
