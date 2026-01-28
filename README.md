@@ -13,7 +13,8 @@
 
 ## 1.1. Clone project.
 
-git clone https://github.com/FIT-DNU/Business-Internship
+git clone 
+https://github.com/FIT-DNU/Business-Internship
 
 https://github.com/dinhtuananh188/TTDN-15-01-N5
 
