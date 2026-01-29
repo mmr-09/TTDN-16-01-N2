@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <menuitem id="menu_tinh_luong_root" name="Tính lương" parent="hr.menu_hr_root" sequence="20"/>
-        <menuitem id="menu_bang_tinh_luong" name="Bảng tính lương" parent="menu_tinh_luong_root" action="action_bang_tinh_luong" sequence="1"/>
+        <!-- Menu ứng dụng chính -->
+        <menuitem id="menu_tinh_luong_root" 
+                  name="Tính lương" 
+                  sequence="60"
+                  web_icon="tinh_luong,static/description/icon.png"/>
+        
+        <!-- Sub-menu -->
+        <menuitem id="menu_bang_tinh_luong" 
+                  name="Bảng tính lương" 
+                  parent="menu_tinh_luong_root" 
+                  action="action_bang_tinh_luong" 
+                  sequence="1"/>
     </data>
 </odoo>

@@ -95,7 +95,6 @@ class BangTinhLuong(models.Model):
             record.luong_co_ban = record.employee_id.luong_co_ban
             record.phu_cap_co_dinh = record.employee_id.phu_cap_co_dinh
             record.ap_dung_bao_hiem = record.employee_id.ap_dung_bao_hiem
-            # Lương đóng bảo hiểm: nếu có cấu hình riêng thì dùng, không thì lấy lương cơ bản
             record.luong_dong_bao_hiem = record.employee_id.luong_dong_bao_hiem or record.employee_id.luong_co_ban
 
     @api.depends('employee_id', 'ngay_bat_dau', 'ngay_ket_thuc', 'buoc_lam_tron_phut', 'kieu_lam_tron', 'gio_mot_cong')

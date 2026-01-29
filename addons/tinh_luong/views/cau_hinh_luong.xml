@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree View -->
+        <record id="view_cau_hinh_luong_tree" model="ir.ui.view">
+            <field name="name">cau_hinh_luong.tree</field>
+            <field name="model">cau_hinh_luong</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="luong_co_ban"/>
+                    <field name="phu_cap_co_dinh"/>
+                    <field name="ap_dung_bao_hiem"/>
+                    <field name="luong_dong_bao_hiem"/>
+                    <field name="currency_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_cau_hinh_luong_form" model="ir.ui.view">
+            <field name="name">cau_hinh_luong.form</field>
+            <field name="model">cau_hinh_luong</field>
+            <field name="arch" type="xml">
+                <form string="Cấu hình lương">
+                    <sheet>
+                        <group>
+                            <group string="Thông tin nhân viên">
+                                <field name="employee_id"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Lương">
+                                <group>
+                                    <group string="Thông tin lương">
+                                        <field name="luong_co_ban"/>
+                                        <field name="phu_cap_co_dinh"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Bảo hiểm">
+                                <group>
+                                    <group string="Cấu hình bảo hiểm">
+                                        <field name="ap_dung_bao_hiem"/>
+                                        <field name="luong_dong_bao_hiem" attrs="{'invisible': [('ap_dung_bao_hiem', '=', False)]}"/>
+                                    </group>
+                                </group>
+                                
+                                <group attrs="{'invisible': [('ap_dung_bao_hiem', '=', False)]}">
+                                    <group string="Tỷ lệ bảo hiểm nhân viên đóng (%)">
+                                        <field name="ty_le_bhxh_nv"/>
+                                        <field name="ty_le_bhyt_nv"/>
+                                        <field name="ty_le_bhtn_nv"/>
+                                    </group>
+                                    
+                                    <group string="Tỷ lệ bảo hiểm công ty đóng (%)">
+                                        <field name="ty_le_bhxh_cty"/>
+                                        <field name="ty_le_bhyt_cty"/>
+                                        <field name="ty_le_bhtn_cty"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Ghi chú">
+                                <field name="note" placeholder="Ghi chú thêm về cấu hình lương..."/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record id="view_cau_hinh_luong_search" model="ir.ui.view">
+            <field name="name">cau_hinh_luong.search</field>
+            <field name="model">cau_hinh_luong</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="employee_id"/>
+                    <field name="luong_co_ban"/>
+                    <filter string="Có áp dụng bảo hiểm" name="filter_co_bao_hiem" 
+                            domain="[('ap_dung_bao_hiem', '=', True)]"/>
+                    <filter string="Không áp dụng bảo hiểm" name="filter_khong_bao_hiem" 
+                            domain="[('ap_dung_bao_hiem', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Công ty" name="group_company" context="{'group_by': 'company_id'}"/>
+                        <filter string="Áp dụng BH" name="group_bao_hiem" context="{'group_by': 'ap_dung_bao_hiem'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_cau_hinh_luong" model="ir.actions.act_window">
+            <field name="name">Cấu hình lương</field>
+            <field name="res_model">cau_hinh_luong</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_cau_hinh_luong_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Tạo cấu hình lương cho nhân viên
+                </p>
+                <p>
+                    Mỗi nhân viên cần có một cấu hình lương để tính toán lương hàng tháng.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>
