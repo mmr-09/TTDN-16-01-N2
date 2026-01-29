@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Main menu -->
+    <menuitem id="menu_hr_ai_assistant_root"
+              name="🤖 HR AI Assistant"
+              parent="hr.menu_hr_root"
+              sequence="100"/>
+    
+    <!-- Chat menu -->
+    <menuitem id="menu_hr_ai_chat"
+              name="💬 Hỏi AI nhanh"
+              parent="menu_hr_ai_assistant_root"
+              action="action_hr_ai_quick_ask"
+              sequence="1"/>
+    
+    <!-- History menu -->
+    <menuitem id="menu_hr_ai_history"
+              name="📋 Lịch sử hỏi đáp"
+              parent="menu_hr_ai_assistant_root"
+              action="action_hr_ai_assistant"
+              sequence="2"/>
+</odoo>

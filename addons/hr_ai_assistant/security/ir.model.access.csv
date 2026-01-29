@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_ai_assistant_user,hr.ai.assistant.user,model_hr_ai_assistant,base.group_user,1,1,1,0
+access_hr_ai_assistant_manager,hr.ai.assistant.manager,model_hr_ai_assistant,hr.group_hr_manager,1,1,1,1
+access_hr_chat_message_user,hr.chat.message.user,model_hr_chat_message,base.group_user,1,1,1,1

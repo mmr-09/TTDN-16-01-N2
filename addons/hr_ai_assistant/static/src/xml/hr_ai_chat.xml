@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="hr_ai_assistant.ChatWidget" owl="1">
+        <div class="hr-ai-chat-container">
+            <!-- Header -->
+            <div class="hr-ai-chat-header">
+                <div>
+                    <h2>🤖 HR AI Assistant</h2>
+                    <p>Chat với trợ lý AI về nhân sự</p>
+                </div>
+                <button class="hr-ai-clear-btn" t-on-click="clearHistory" title="Xóa lịch sử chat">
+                    🗑️
+                </button>
+            </div>
+
+            <!-- Sample questions -->
+            <div class="hr-ai-chat-samples">
+                <p>💡 Câu hỏi gợi ý:</p>
+                <div class="hr-ai-sample-buttons">
+                    <button class="hr-ai-sample-btn" t-on-click="() => this.askSample('Danh sách nhân viên')">
+                        👥 Danh sách NV
+                    </button>
+                    <button class="hr-ai-sample-btn" t-on-click="() => this.askSample('Lương tháng này')">
+                        💰 Lương
+                    </button>
+                    <button class="hr-ai-sample-btn" t-on-click="() => this.askSample('Chấm công tháng 1')">
+                        📅 Chấm công
+                    </button>
+                    <button class="hr-ai-sample-btn" t-on-click="() => this.askSample('Bảo hiểm')">
+                        🏥 Bảo hiểm
+                    </button>
+                </div>
+            </div>
+
+            <!-- Messages -->
+            <div class="hr-ai-chat-messages" t-ref="chatContainer">
+                <t t-foreach="state.messages" t-as="msg" t-key="msg_index">
+                    <div t-attf-class="hr-ai-message {{msg.is_bot ? 'bot' : 'user'}}">
+                        <div class="hr-ai-message-avatar">
+                            <t t-if="msg.is_bot">🤖</t>
+                            <t t-else="">👤</t>
+                        </div>
+                        <div class="hr-ai-message-content">
+                            <div class="hr-ai-message-text" t-out="formatMessage(msg.message)"/>
+                            <div class="hr-ai-message-time" t-out="msg.time"/>
+                        </div>
+                    </div>
+                </t>
+                
+                <t t-if="state.loading">
+                    <div class="hr-ai-message bot">
+                        <div class="hr-ai-message-avatar">🤖</div>
+                        <div class="hr-ai-message-content">
+                            <div class="hr-ai-typing">
+                                <span class="hr-ai-dot"></span>
+                                <span class="hr-ai-dot"></span>
+                                <span class="hr-ai-dot"></span>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+
+            <!-- Input -->
+            <div class="hr-ai-chat-input">
+                <div class="hr-ai-input-group">
+                    <textarea 
+                        t-model="state.input"
+                        placeholder="Nhập câu hỏi của bạn..."
+                        t-on-keypress="onKeyPress"
+                        t-att-disabled="state.loading"
+                        rows="1"
+                    />
+                    <button 
+                        class="hr-ai-send-btn"
+                        t-on-click="sendMessage"
+                        t-att-disabled="state.loading or !state.input.trim()"
+                    >
+                        <t t-if="state.loading">⏳</t>
+                        <t t-else="">📤</t>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
