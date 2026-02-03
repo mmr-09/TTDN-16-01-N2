@@ -127,8 +127,7 @@ Ngoài ra có thể thêm mổ số parameters như:
 Người sử dụng truy cập theo đường dẫn _http://localhost:8069/_ để đăng nhập vào hệ thống.
 
 ##  5. Poster
-
-
+<img width="562" height="806" alt="image" src="https://github.com/user-attachments/assets/417584be-4e2a-42d4-8e4c-dafd694f005a" />
 ## 📞 6. Liên hệ
 - 👨‍🎓 **Sinh viên thực hiện**: Nguyễn Tiến Thái - Nguyễn Việt Đức - Lù Ngọc Tân
 - 🎓 **Khoa**: Công nghệ thông tin – Đại học Đại Nam
