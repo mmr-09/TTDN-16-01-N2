@@ -17,7 +17,7 @@ git clone
 
 https://github.com/FIT-DNU/Business-Internship
 
-https://github.com/dinhtuananh188/TTDN-15-01-N5
+https://github.com/mmr-09/TTDN-16-01-N2
 
 
 ## 1.2. cài đặt các thư viện cần thiết
@@ -69,5 +69,10 @@ python3 odoo-bin.py -c odoo.conf -u all
 
 Người sử dụng truy cập theo đường dẫn _http://localhost:8069/_ để đăng nhập vào hệ thống.
 
+
+# 5. Poster hệ thống
+https://drive.google.com/file/d/1oZ5kzyJKzrMUZ-gekzNi1sMY-Ftjnh4-/view
+
 Hoàn tất
     
+# 5. Poster dự 
