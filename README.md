@@ -74,5 +74,3 @@ Người sử dụng truy cập theo đường dẫn _http://localhost:8069/_ đ
 https://drive.google.com/file/d/1oZ5kzyJKzrMUZ-gekzNi1sMY-Ftjnh4-/view
 
 Hoàn tất
-    
-# 5. Poster dự 
